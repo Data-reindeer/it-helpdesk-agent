@@ -1,0 +1,14 @@
+{
+  "model": "gpt-6.1-sol",
+  "scenario_count": 40,
+  "repetitions_per_scenario": 3,
+  "live_assertion_passes": 120,
+  "live_runs": 120,
+  "turn_latency_seconds": {
+    "median": 13.237,
+    "p95": 23.827
+  },
+  "engineering_tests": 87,
+  "live_browser_checks": 8,
+  "scope": "Synthetic, visible evaluation scenarios; assertion passes are not a universal resolution rate."
+}

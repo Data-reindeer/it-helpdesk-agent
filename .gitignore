@@ -1,0 +1,12 @@
+# Local credentials and runtime data
+.env
+.env.*
+!.env.example
+.venv/
+var/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.DS_Store

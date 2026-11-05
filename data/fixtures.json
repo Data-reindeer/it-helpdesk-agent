@@ -1,0 +1,884 @@
+{
+  "version": "1.0",
+  "scenario_clock": "2026-11-04T09:00:00+08:00",
+  "kb": [
+    {
+      "id": "KB-001",
+      "service": "vpn",
+      "title": "Intermittent VPN: collect context",
+      "tags": "vpn disconnect 断开 远程",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Record the disconnect time and exact client error, without sharing credentials.",
+        "Check whether normal internet also drops at that time."
+      ],
+      "verification": "Observe whether the failure affects internet or only VPN.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-002",
+      "service": "vpn",
+      "title": "VPN 5.0 known idle disconnect",
+      "tags": "vpn 5.0 idle 15 minutes 断开",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [
+        "Managed VPN client version is 5.0",
+        "No regional VPN outage"
+      ],
+      "steps": [
+        "Save work, then install the approved VPN 5.1 update from the managed Software Center.",
+        "Reconnect and observe for at least 20 minutes."
+      ],
+      "verification": "VPN stays connected for at least 20 minutes.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-003",
+      "service": "vpn",
+      "title": "VPN local network instability",
+      "tags": "vpn wifi internet unstable 网络",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [
+        "Normal internet also disconnects"
+      ],
+      "steps": [
+        "Move closer to the access point or test an approved wired connection.",
+        "Reconnect VPN and compare with the previous network."
+      ],
+      "verification": "Internet and VPN remain stable.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-004",
+      "service": "vpn",
+      "title": "VPN gateway outage",
+      "tags": "vpn gateway outage 故障",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [
+        "An active matching VPN incident exists"
+      ],
+      "steps": [
+        "Check the current service incident and affected region.",
+        "Use only work resources already accessible without VPN while awaiting recovery."
+      ],
+      "verification": "Service status recovers and employee confirms access.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-005",
+      "service": "vpn",
+      "title": "VPN authentication rejected",
+      "tags": "vpn authentication login 登录",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Check the exact non-secret error and whether Okta sign-in works.",
+        "If Okta also fails, follow the account runbook rather than reinstalling VPN."
+      ],
+      "verification": "Sign-in and internal access work.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-006",
+      "service": "okta",
+      "title": "Differentiate login failure",
+      "tags": "okta login password 登录 密码",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Record the non-secret error and whether the user reaches the MFA step.",
+        "Check current Okta health before asking the employee to repeat a reset."
+      ],
+      "verification": "Successful sign-in confirmed by employee.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-007",
+      "service": "okta",
+      "title": "Forgotten password self-service",
+      "tags": "okta password reset 密码 重置",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [
+        "Trusted recovery channel is registered",
+        "No reset already tried without success"
+      ],
+      "steps": [
+        "Open the company-managed Okta sign-in bookmark and choose the self-service password reset option.",
+        "Use only the recovery channel already registered in the directory. Never share codes in chat."
+      ],
+      "verification": "Employee confirms successful login.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-008",
+      "service": "okta",
+      "title": "Repeated reset did not help",
+      "tags": "okta reset failed locked 重置 失败",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Do not repeat a failed password reset. Record the error and whether MFA is reached.",
+        "Ask Identity Support to inspect lockout or recovery policy if status is healthy."
+      ],
+      "verification": "Identity Support verifies recovery; employee confirms sign-in.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-009",
+      "service": "okta",
+      "title": "Lost MFA device",
+      "tags": "okta mfa lost 手机 丢失",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [
+        "MFA factor unavailable"
+      ],
+      "steps": [
+        "Do not approve new MFA prompts or share recovery codes.",
+        "Request Identity Support identity verification and MFA recovery."
+      ],
+      "verification": "Identity Support completes verification.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-010",
+      "service": "okta",
+      "title": "Unexpected MFA prompts",
+      "tags": "okta security suspicious mfa 安全",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Decline unexpected prompts and stop trying to approve them.",
+        "Contact Security using the configured handoff; do not share passwords."
+      ],
+      "verification": "Security validates account safety.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-011",
+      "service": "salesforce",
+      "title": "Chicago shared latency",
+      "tags": "salesforce slow chicago 慢 芝加哥",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Check regional Salesforce status and whether coworkers are affected.",
+        "If a matching incident exists, link it and avoid repeated local resets."
+      ],
+      "verification": "Incident recovery and normal loading confirmed.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-012",
+      "service": "salesforce",
+      "title": "Single browser loading issue",
+      "tags": "salesforce browser cache loading 浏览器",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [
+        "No matching active incident",
+        "Issue isolated to one browser"
+      ],
+      "steps": [
+        "Save work and test the managed browser private window.",
+        "If only one browser is affected, record its version and extension list without exporting private data."
+      ],
+      "verification": "Application loads normally.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-013",
+      "service": "snowflake",
+      "title": "Production access approval",
+      "tags": "snowflake production access 权限 生产",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Check current entitlements and department.",
+        "Submit a least-privilege approval request with business justification; do not grant access directly."
+      ],
+      "verification": "Owner approval and subsequent provisioning confirmed.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-014",
+      "service": "grafana",
+      "title": "Dashboard access request",
+      "tags": "grafana dashboard permission 权限 看板",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Check existing viewer entitlement.",
+        "Request viewer access with the dashboard scope and business justification if missing."
+      ],
+      "verification": "Approved access and dashboard loading confirmed.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-015",
+      "service": "jenkins",
+      "title": "Pipeline timeout after maintenance",
+      "tags": "jenkins timeout maintenance pipeline 超时 维护",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Collect job name, first failure timestamp and non-secret error.",
+        "Compare recent network changes and Snowflake connectivity; do not rerun destructive jobs or roll back production."
+      ],
+      "verification": "Platform team verifies dependencies and a successful safe job run.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-016",
+      "service": "tableau",
+      "title": "Stale downstream reports",
+      "tags": "tableau stale refresh report 报表",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Check latest successful refresh and upstream job status.",
+        "Correlate failures with Jenkins; do not assume the report itself is the root cause."
+      ],
+      "verification": "Upstream recovery and successful refresh confirmed.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-017",
+      "service": "wifi",
+      "title": "Office Wi-Fi connectivity",
+      "tags": "wifi network 连接 无线",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Check whether other devices or coworkers on the same network are affected.",
+        "Use an approved wired connection if available and report the location."
+      ],
+      "verification": "Connectivity confirmed.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-018",
+      "service": "email",
+      "title": "Mail delivery delay",
+      "tags": "email mail outlook 邮件",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Check mail service health and whether multiple recipients are affected.",
+        "Record the non-secret error and time; never paste mail bodies containing sensitive data."
+      ],
+      "verification": "Test message delivery confirmed.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-019",
+      "service": "device",
+      "title": "Managed laptop startup",
+      "tags": "laptop startup hardware 笔记本 开机",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Check power connection and visible indicator lights.",
+        "For overheating, swelling or damage, stop use and contact Hardware Support."
+      ],
+      "verification": "Hardware team or employee confirms safe operation.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-020",
+      "service": "teams",
+      "title": "Meeting audio issue",
+      "tags": "teams audio meeting 麦克风",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Check selected input/output in the managed meeting client.",
+        "Test with the built-in audio test without recording confidential meetings."
+      ],
+      "verification": "Employee confirms test audio.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-021",
+      "service": "vpn",
+      "title": "Deprecated VPN workaround",
+      "tags": "vpn disable firewall legacy",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": false,
+      "conditions": [],
+      "steps": [
+        "Do not use: obsolete workaround."
+      ],
+      "verification": "Not applicable.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    },
+    {
+      "id": "KB-022",
+      "service": "snowflake",
+      "title": "Query performance triage",
+      "tags": "snowflake slow query 慢",
+      "platform": "all",
+      "version": 2,
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "approved": true,
+      "conditions": [],
+      "steps": [
+        "Record query ID without pasting customer data.",
+        "Compare service status and route warehouse configuration changes to Data Platform."
+      ],
+      "verification": "Data Platform confirms query performance.",
+      "escalation": "If the applicable safe steps fail, preserve the results and contact the service team."
+    }
+  ],
+  "users": [
+    {
+      "id": "EMP-001",
+      "name": "Alex Chen",
+      "department": "Data Engineering",
+      "location": "Shanghai",
+      "role": "engineer",
+      "equipment": {
+        "os": "macOS",
+        "vpn_version": "5.0",
+        "managed": true
+      },
+      "permissions": [
+        "grafana:viewer"
+      ],
+      "recovery_registered": true
+    },
+    {
+      "id": "EMP-002",
+      "name": "Morgan Lee",
+      "department": "Sales",
+      "location": "Chicago",
+      "role": "analyst",
+      "equipment": {
+        "os": "Windows",
+        "vpn_version": "5.1",
+        "managed": true
+      },
+      "permissions": [],
+      "recovery_registered": true
+    },
+    {
+      "id": "EMP-003",
+      "name": "Sam Rivera",
+      "department": "Finance",
+      "location": "London",
+      "role": "analyst",
+      "equipment": {
+        "os": "macOS",
+        "vpn_version": "5.0",
+        "managed": true
+      },
+      "permissions": [],
+      "recovery_registered": true
+    },
+    {
+      "id": "EMP-004",
+      "name": "Taylor Park",
+      "department": "Data Engineering",
+      "location": "Chicago",
+      "role": "engineer",
+      "equipment": {
+        "os": "Windows",
+        "vpn_version": "5.1",
+        "managed": true
+      },
+      "permissions": [
+        "grafana:viewer"
+      ],
+      "recovery_registered": true
+    },
+    {
+      "id": "EMP-005",
+      "name": "Jordan Wu",
+      "department": "Research",
+      "location": "Shanghai",
+      "role": "scientist",
+      "equipment": {
+        "os": "macOS",
+        "vpn_version": "5.0",
+        "managed": true
+      },
+      "permissions": [],
+      "recovery_registered": true
+    },
+    {
+      "id": "EMP-006",
+      "name": "Casey Lin",
+      "department": "Operations",
+      "location": "Singapore",
+      "role": "associate",
+      "equipment": {
+        "os": "Windows",
+        "vpn_version": "5.1",
+        "managed": true
+      },
+      "permissions": [],
+      "recovery_registered": false
+    },
+    {
+      "id": "EMP-007",
+      "name": "Riley Zhao",
+      "department": "IT",
+      "location": "London",
+      "role": "engineer",
+      "equipment": {
+        "os": "macOS",
+        "vpn_version": "5.0",
+        "managed": true
+      },
+      "permissions": [],
+      "recovery_registered": true
+    },
+    {
+      "id": "EMP-008",
+      "name": "Jamie Sun",
+      "department": "Sales",
+      "location": "Shanghai",
+      "role": "associate",
+      "equipment": {
+        "os": "Windows",
+        "vpn_version": "5.1",
+        "managed": true
+      },
+      "permissions": [],
+      "recovery_registered": true
+    }
+  ],
+  "status": [
+    {
+      "id": "STATUS-vpn",
+      "service": "vpn",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "STATUS-okta",
+      "service": "okta",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "STATUS-salesforce",
+      "service": "salesforce",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "STATUS-snowflake",
+      "service": "snowflake",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "STATUS-grafana",
+      "service": "grafana",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "STATUS-jenkins",
+      "service": "jenkins",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "STATUS-tableau",
+      "service": "tableau",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "STATUS-wifi",
+      "service": "wifi",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "STATUS-email",
+      "service": "email",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "STATUS-teams",
+      "service": "teams",
+      "region": "global",
+      "health": "healthy",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": null
+    },
+    {
+      "id": "INC-SF-104",
+      "service": "salesforce",
+      "region": "Chicago",
+      "health": "degraded",
+      "updated_at": "2026-11-04T09:00:00+08:00",
+      "incident": {
+        "id": "INC-SF-104",
+        "started_at": "2026-11-03T08:00:00+08:00",
+        "description": "Chicago regional Salesforce latency under investigation",
+        "owner": "Business Applications",
+        "eta": null
+      }
+    }
+  ],
+  "changes": [
+    {
+      "id": "CHG-231",
+      "service": "jenkins",
+      "changed_at": "2026-10-30T22:00:00+08:00",
+      "description": "Friday maintenance: egress allowlist changed for build subnet.",
+      "related": [
+        "snowflake",
+        "tableau"
+      ],
+      "causality_confirmed": false
+    },
+    {
+      "id": "CHG-232",
+      "service": "vpn",
+      "changed_at": "2026-11-02T10:00:00+08:00",
+      "description": "Managed VPN 5.1 released for 5.0 idle disconnect defect.",
+      "related": [],
+      "causality_confirmed": true
+    }
+  ],
+  "history": [
+    {
+      "id": "HIST-001",
+      "service": "vpn",
+      "symptoms": "vpn disconnect 断开 远程",
+      "resolution": "Intermittent VPN: collect context",
+      "article_id": "KB-001",
+      "outcome": "escalated",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-002",
+      "service": "vpn",
+      "symptoms": "vpn 5.0 idle 15 minutes 断开",
+      "resolution": "VPN 5.0 known idle disconnect",
+      "article_id": "KB-002",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-003",
+      "service": "vpn",
+      "symptoms": "vpn wifi internet unstable 网络",
+      "resolution": "VPN local network instability",
+      "article_id": "KB-003",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-004",
+      "service": "vpn",
+      "symptoms": "vpn gateway outage 故障",
+      "resolution": "VPN gateway outage",
+      "article_id": "KB-004",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-005",
+      "service": "vpn",
+      "symptoms": "vpn authentication login 登录",
+      "resolution": "VPN authentication rejected",
+      "article_id": "KB-005",
+      "outcome": "escalated",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-006",
+      "service": "okta",
+      "symptoms": "okta login password 登录 密码",
+      "resolution": "Differentiate login failure",
+      "article_id": "KB-006",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-007",
+      "service": "okta",
+      "symptoms": "okta password reset 密码 重置",
+      "resolution": "Forgotten password self-service",
+      "article_id": "KB-007",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-008",
+      "service": "okta",
+      "symptoms": "okta reset failed locked 重置 失败",
+      "resolution": "Repeated reset did not help",
+      "article_id": "KB-008",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-009",
+      "service": "okta",
+      "symptoms": "okta mfa lost 手机 丢失",
+      "resolution": "Lost MFA device",
+      "article_id": "KB-009",
+      "outcome": "escalated",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-010",
+      "service": "okta",
+      "symptoms": "okta security suspicious mfa 安全",
+      "resolution": "Unexpected MFA prompts",
+      "article_id": "KB-010",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-011",
+      "service": "salesforce",
+      "symptoms": "salesforce slow chicago 慢 芝加哥",
+      "resolution": "Chicago shared latency",
+      "article_id": "KB-011",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-012",
+      "service": "salesforce",
+      "symptoms": "salesforce browser cache loading 浏览器",
+      "resolution": "Single browser loading issue",
+      "article_id": "KB-012",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-013",
+      "service": "snowflake",
+      "symptoms": "snowflake production access 权限 生产",
+      "resolution": "Production access approval",
+      "article_id": "KB-013",
+      "outcome": "escalated",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-014",
+      "service": "grafana",
+      "symptoms": "grafana dashboard permission 权限 看板",
+      "resolution": "Dashboard access request",
+      "article_id": "KB-014",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-015",
+      "service": "jenkins",
+      "symptoms": "jenkins timeout maintenance pipeline 超时 维护",
+      "resolution": "Pipeline timeout after maintenance",
+      "article_id": "KB-015",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-016",
+      "service": "tableau",
+      "symptoms": "tableau stale refresh report 报表",
+      "resolution": "Stale downstream reports",
+      "article_id": "KB-016",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-017",
+      "service": "wifi",
+      "symptoms": "wifi network 连接 无线",
+      "resolution": "Office Wi-Fi connectivity",
+      "article_id": "KB-017",
+      "outcome": "escalated",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-018",
+      "service": "email",
+      "symptoms": "email mail outlook 邮件",
+      "resolution": "Mail delivery delay",
+      "article_id": "KB-018",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-019",
+      "service": "device",
+      "symptoms": "laptop startup hardware 笔记本 开机",
+      "resolution": "Managed laptop startup",
+      "article_id": "KB-019",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    },
+    {
+      "id": "HIST-020",
+      "service": "teams",
+      "symptoms": "teams audio meeting 麦克风",
+      "resolution": "Meeting audio issue",
+      "article_id": "KB-020",
+      "outcome": "resolved",
+      "date": "2026-10-20",
+      "caution": "Historical similarity is not proof of current root cause."
+    }
+  ],
+  "policies": {
+    "version": "2026-11-04.1",
+    "allowed_actions": [
+      "password_reset",
+      "access_request"
+    ],
+    "access_resources": [
+      "snowflake:production:reader",
+      "grafana:viewer"
+    ],
+    "rules": [
+      {
+        "id": "POL-01",
+        "rule": "Self only; server injects employee identity."
+      },
+      {
+        "id": "POL-02",
+        "rule": "Registered recovery channel required for reset."
+      },
+      {
+        "id": "POL-03",
+        "rule": "Every reset/access request requires exact confirmation."
+      },
+      {
+        "id": "POL-04",
+        "rule": "Production access requires owner approval; never directly grant."
+      },
+      {
+        "id": "POL-05",
+        "rule": "MFA recovery requires human identity verification."
+      },
+      {
+        "id": "POL-06",
+        "rule": "No production rollback, shell, SQL or firewall modification tool."
+      },
+      {
+        "id": "POL-07",
+        "rule": "Urgency never overrides authorization."
+      },
+      {
+        "id": "POL-08",
+        "rule": "History is advisory; current policy/status takes precedence."
+      },
+      {
+        "id": "POL-09",
+        "rule": "Reset does not imply successful employee login."
+      },
+      {
+        "id": "POL-10",
+        "rule": "Handoff queue is simulated and not staffed."
+      }
+    ]
+  }
+}
